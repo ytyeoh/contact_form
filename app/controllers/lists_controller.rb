@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  # protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session
   before_action :set_list, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:show, :edit, :index, :update, :destroy]
   # GET /lists
@@ -28,10 +28,10 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     respond_to do |format|
       if @list.save
-        UserMailer.contact_email
-        # format.json { render :show, status: :created, location: @list }
+        # UserMailer.contact_email
+        format.json { render :show, status: :created, location: @list }
       else
-        # format.json { render json: @list.errors, status: :unprocessable_entity }
+        format.json { render json: @list.errors, status: :unprocessable_entity }
       end
     end
   end
