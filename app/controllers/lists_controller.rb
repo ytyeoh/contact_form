@@ -29,8 +29,10 @@ class ListsController < ApplicationController
     respond_to do |format|
       if @list.save
         # UserMailer.contact_email
+        p 'done'
         format.json { render :show, status: :created, location: @list }
       else
+        p 'fail'
         format.json { render json: @list.errors, status: :unprocessable_entity }
       end
     end
