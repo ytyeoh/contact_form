@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  protect_from_forgery with: :null_session
+  protect_from_forgery unless: -> { request.format.json? }
   before_action :set_list, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:show, :edit, :index, :update, :destroy]
   # GET /lists
