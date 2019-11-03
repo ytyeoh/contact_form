@@ -1,6 +1,10 @@
 class UserMailer < ApplicationMailer
-
-  def contact_email
-    mail(to: 'ytyeoh@me.com', subject: 'Welcome to My Awesome Site')
+  def contact_email(email, name, phone, desc, url, custId, address)
+    @name = name
+    @email = email
+    @phone = phone
+    @desc = desc
+    @address = address
+    mail(to: custId, subject: 'Enquriy From Your Website')
   end
 end
