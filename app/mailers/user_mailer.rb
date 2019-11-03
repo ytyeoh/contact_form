@@ -5,6 +5,6 @@ class UserMailer < ApplicationMailer
     @phone = phone
     @desc = desc
     @address = address
-    mail(to: custId, subject: 'Enquriy From Your Website')
+    mail(to: custId, subject: 'Enquriy From Your Website', reply_to: @email)
   end
 end
