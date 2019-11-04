@@ -26,13 +26,11 @@ class ListsController < ApplicationController
   # POST /lists.json
   def create
     @list = List.new(list_params)
-    respond_to do |format|
-      if @list.save
-        UserMailer.contact_email(list_params[:email], list_params[:name], list_params[:phone], list_params[:desc], list_params[:url], params[:custId], params[:address]).deliver_now
-        flash[:success] = "Success Send Enquiry"
-      else
-        flash[:error] =  @list.errors
-      end
+    if @list.save
+      UserMailer.contact_email(list_params[:email], list_params[:name], list_params[:phone], list_params[:desc], list_params[:url], params[:custId], params[:address]).deliver_now
+      flash[:success] = "Success Send Enquiry"
+    else
+      flash[:error] =  @list.errors
     end
   end
 
