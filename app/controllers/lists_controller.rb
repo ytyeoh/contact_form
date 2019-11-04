@@ -27,7 +27,7 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      UserMailer.contact_email(list_params[:email], list_params[:name], list_params[:phone], list_params[:desc], list_params[:url], params[:custId], params[:address]).deliver_now
+      UserMailer.contact_email(list_params[:email], list_params[:name], list_params[:phone], list_params[:desc], list_params[:url], params[:custId], params[:address]).deliver_later
       flash[:success] = "Success Send Enquiry"
     else
       flash[:error] =  @list.errors
