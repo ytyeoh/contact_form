@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  # protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session
   before_action :set_list, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:show, :edit, :index, :update, :destroy]
   # GET /lists
@@ -28,10 +28,12 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     respond_to do |format|
       if @list.save
-        UserMailer.contact_email
-        # format.json { render :show, status: :created, location: @list }
+        UserMailer.contact_email(list_params[:email], list_params[:name], list_params[:phone], list_params[:desc], list_params[:url], params[:custId], params[:address]).deliver_now
+        p 'done'
+        format.json { render :show, status: :created, location: @list }
       else
-        # format.json { render json: @list.errors, status: :unprocessable_entity }
+        p 'fail'
+        format.json { render json: @list.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,6 +70,6 @@ class ListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
-      params.require(:list).permit(:name, :email, :phone, :desc, :url)
+      params.require(:list).permit(:name, :email, :phone, :desc, :url, :custId, :address)
     end
 end
