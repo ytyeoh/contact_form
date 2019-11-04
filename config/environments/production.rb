@@ -48,7 +48,18 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
-  
+
+  config.action_mailer.delivery_method = :smtp
+
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => <gmail_username>,
+    :password             => <gmail_password>,
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
